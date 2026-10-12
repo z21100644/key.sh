@@ -1,10 +1,10 @@
-## 交互式 SSH 安全配置脚本 · 一键加固你的 VPS
+## 互動式 SSH 安全配置腳本 · 一鍵加固你的 VPS
 
-密钥登录管理 · 密码登录开关 · Fail2Ban防护 · SSH 端口修改
+金鑰登入管理 · 密碼登入開關 · Fail2Ban防護 · SSH 連接埠修改
 
 [![Shell](https://img.shields.io/badge/Shell-Bash-4EAA25?logo=gnu-bash&logoColor=white)](#)
 [![Platform](https://img.shields.io/badge/Platform-Linux-FCC624?logo=linux&logoColor=black)](#)
-![GitHub Stars](https://img.shields.io/github/stars/BeacherZ/key.sh?style=flat-square)
+![GitHub Stars](https://img.shields.io/github/stars/z21100644/key.sh?style=flat-square)
 
 </div>
 
@@ -12,92 +12,92 @@
 
 ## ✨ 功能
 
-- 🔑 **密钥登录管理** — GitHub 拉取 / VPS 生成 / URL 导入 / 一键开关
-- 🔒 **密码登录开关** — 启用或禁用 `PasswordAuthentication`
-- 🛡️ **Fail2Ban防护** — 一键安装 / 参数调整 / 指数递增封禁 / 白名单 / 日志
-- 🔧 **SSH 端口修改** — 自动放行防火墙，同步 Fail2Ban 端口
-- ⚠️ **防锁死保护** — 危险操作前红色警告 + 二次确认
+- 🔑 **金鑰登入管理** — GitHub 拉取 / VPS 生成 / URL 匯入 / 一鍵開關
+- 🔒 **密碼登入開關** — 啟用或禁用 `PasswordAuthentication`
+- 🛡️ **Fail2Ban防護** — 一鍵安裝 / 參數調整 / 指數遞增封禁 / 白名單 / 日誌
+- 🔧 **SSH 連接埠修改** — 自動放行防火牆，同步 Fail2Ban 連接埠
+- ⚠️ **防鎖死保護** — 危險操作前紅色警告 + 二次確認
 
 ---
 
-## 🐧 支持的系统
+## 🐧 支援的系統
 
 Debian · Ubuntu · RHEL · CentOS · Rocky · AlmaLinux · Fedora · Oracle · Amazon Linux · Alpine · Arch · Manjaro · openSUSE
 
-自动检测包管理器、Init 系统、SSH 日志路径与防火墙。
+自動偵測套件管理器、Init 系統、SSH 日誌路徑與防火牆。
 
 ---
 
-## 🚀 快速开始
+## 🚀 快速開始
 
 ```bash
-bash <(curl -fsSL https://raw.githubusercontent.com/BeacherZ/key.sh/main/key.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/z21100644/key.sh/main/key.sh)
 ```
 
-> 需要 root 权限或 sudo，首次运行自动安装缺失依赖。
+> 需要 root 權限或 sudo，首次執行自動安裝缺失依賴。
 
 ---
 
-## 🖥️ 界面预览
+## 🖥️ 介面預覽
 
 ```
 ============================================================
                      SSH 安全配置工具
 ============================================================
- 系统架构 : Debian 12
- 密钥登录 : 已启用 (1 把公钥)
- 密码登录 : 已禁用 (PasswordAuthentication no)
- Fail2Ban : 防护中 (已封禁0 IP)
- SSH 端口 : 22
+ 系統架構 : Debian 12
+ 金鑰登入 : 已啟用 (1 把公鑰)
+ 密碼登入 : 已禁用 (PasswordAuthentication no)
+ Fail2Ban : 防護中 (已封禁0 IP)
+ SSH 埠號 : 22
 ============================================================
- 1. 密钥登录管理
- 2. 密码登录开关
- 3. Fail2Ban防护
- 4. SSH 端口修改
- 0. 退出脚本
+ 1. 金鑰登入管理
+ 2. 密碼登入開關
+ 3. Fail2Ban防護
+ 4. SSH 連接埠修改
+ 0. 退出腳本
 ============================================================
 ```
 
 ---
 
 
-## ⌨️ 命令行模式
+## ⌨️ 命令列模式
 
-无需进入交互菜单，可直接执行单次操作；多个参数可以组合，脚本会按固定顺序执行。
+無需進入互動選單，可直接執行單次操作；多個參數可以組合，腳本會按固定順序執行。
 
 ### 常用命令
 
 ```bash
-./key.sh -g <GitHub用户名>    # 从 GitHub 拉取公钥
-./key.sh -u <URL>             # 从自定义 URL 拉取公钥
-./key.sh -f <文件>            # 从本地文件导入公钥
-./key.sh -p <端口>            # 修改 SSH 端口（自动同步防火墙与 Fail2Ban）
-./key.sh -d                   # 禁用密码登录
-./key.sh -h                   # 显示帮助
+./key.sh -g <GitHub使用者>    # 從 GitHub 拉取公鑰
+./key.sh -u <URL>             # 從自訂 URL 拉取公鑰
+./key.sh -f <檔案>            # 從本地檔案匯入公鑰
+./key.sh -p <連接埠>          # 修改 SSH 連接埠（自動同步防火牆與 Fail2Ban）
+./key.sh -d                   # 禁用密碼登入
+./key.sh -h                   # 顯示幫助
 ```
 
-### 组合用法
+### 組合用法
 
 ```bash
-# 一次性完成：拉取公钥 → 改端口 → 禁用密码登录
-./key.sh -g <GitHub用户名> -p 2222 -d
+# 一次性完成：拉取公鑰 → 改連接埠 → 禁用密碼登入
+./key.sh -g <GitHub使用者> -p 2222 -d
 
-# 覆盖模式：先清空已存公钥，再追加（-o 必须与 -g/-u/-f 配合）
-./key.sh -o -g <GitHub用户名>
+# 覆蓋模式：先清空已存公鑰，再追加（-o 必須與 -g/-u/-f 配合）
+./key.sh -o -g <GitHub使用者>
 ./key.sh -o -f /path/to/PublicKey.pub
 ```
 
-### 参数说明
+### 參數說明
 
-| 参数 | 说明 | 可单独使用 |
+| 參數 | 說明 | 可單獨使用 |
 |---|---|:---:|
-| `-g <用户名>` | 从 GitHub 拉取公钥 | ✅ |
-| `-u <URL>` | 从自定义 URL 拉取公钥 | ✅ |
-| `-f <文件>` | 从本地文件导入公钥 | ✅ |
-| `-p <端口>` | 修改 SSH 端口 | ✅ |
-| `-d` | 禁用密码登录 | ✅ |
-| `-o` | 覆盖模式，清空已存公钥 | ❌ 需配合 `-g`/`-u`/`-f` |
-| `-h` | 显示帮助 | ✅ |
+| `-g <使用者>` | 從 GitHub 拉取公鑰 | ✅ |
+| `-u <URL>` | 從自訂 URL 拉取公鑰 | ✅ |
+| `-f <檔案>` | 從本地檔案匯入公鑰 | ✅ |
+| `-p <連接埠>` | 修改 SSH 連接埠 | ✅ |
+| `-d` | 禁用密碼登入 | ✅ |
+| `-o` | 覆蓋模式，清空已存公鑰 | ❌ 需配合 `-g`/`-u`/`-f` |
+| `-h` | 顯示幫助 | ✅ |
 
 
 
@@ -105,29 +105,29 @@ bash <(curl -fsSL https://raw.githubusercontent.com/BeacherZ/key.sh/main/key.sh)
 
 ## 📖 使用示例
 
-**新 VPS 初始化推荐流程：**
+**新 VPS 初始化推薦流程：**
 
 ```
-1. 运行脚本 → 1. 密钥登录管理 → 选 1/2/3 添加公钥
-2. 【重要】新建终端，用密钥登录测试
-3. 测试成功后 → 2. 密码登录开关 → 禁用密码登录
-4. 3. Fail2Ban防护 → 一键安装
+1. 執行腳本 → 1. 金鑰登入管理 → 選 1/2/3 新增公鑰
+2. 【重要】新建終端，用金鑰登入測試
+3. 測試成功後 → 2. 密碼登入開關 → 禁用密碼登入
+4. 3. Fail2Ban防護 → 一鍵安裝
 ```
 
-**修改端口：**
+**修改連接埠：**
 
-脚本会自动同步：`sshd_config` 更新 → 防火墙放行 → Fail2Ban 端口同步 → 重启 SSH 服务。
+腳本會自動同步：`sshd_config` 更新 → 防火牆放行 → Fail2Ban 連接埠同步 → 重啟 SSH 服務。
 
-> ⚠️ 记得在云服务商安全组中放行新端口。
+> ⚠️ 記得在雲服務商安全組中放行新連接埠。
 
 ---
 
 ## ⚠️ 安全提示
 
-- 禁用密码登录前，请**先新建终端验证密钥登录成功**
-- 危险操作会弹出红色警告与二次确认，请仔细阅读
-- 建议把常用 IP 加入 Fail2Ban 白名单，避免误封自己
-- 脚本不收集任何信息，所有操作均为本地执行
+- 禁用密碼登入前，請**先新建終端驗證金鑰登入成功**
+- 危險操作會彈出紅色警告與二次確認，請仔細閱讀
+- 建議把常用 IP 加入 Fail2Ban 白名單，避免誤封自己
+- 腳本不收集任何資訊，所有操作均為本地執行
 
 ---
 
@@ -135,4 +135,4 @@ bash <(curl -fsSL https://raw.githubusercontent.com/BeacherZ/key.sh/main/key.sh)
 
 <div align="center">
 
-如果这个脚本帮到了你，欢迎点一个 ⭐
+如果這個腳本幫到了你，歡迎點一個 ⭐
